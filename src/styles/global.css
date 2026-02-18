@@ -87,6 +87,20 @@ input {
   font-weight: 600;
 }
 
+
+.language-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.language-switcher select {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.35rem 0.5rem;
+}
+
 .catalog-layout {
   max-width: 1200px;
   margin: 0 auto;
