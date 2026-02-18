@@ -1,13 +1,17 @@
+import { useI18n } from '../context/I18nContext';
+
 function SearchBar({ value, onChange }) {
+  const { t } = useI18n();
+
   return (
     <div className="search-bar">
-      <label htmlFor="search-input">Buscar productos</label>
+      <label htmlFor="search-input">{t('searchProducts')}</label>
       <input
         id="search-input"
         type="search"
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        placeholder="Ej. bambú, hogar..."
+        placeholder={t('searchPlaceholder')}
       />
     </div>
   );

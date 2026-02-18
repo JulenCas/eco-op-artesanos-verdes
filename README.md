@@ -22,3 +22,12 @@ Aplicación React + Vite para explorar un catálogo de productos sostenibles.
 - `npm run dev`: entorno local de desarrollo.
 - `npm run build`: build de producción.
 - `npm run preview`: previsualizar build local.
+
+
+## Internacionalización (i18n)
+
+La app incluye soporte de interfaz para tres idiomas: **español (`es`)**, **inglés (`en`)** y **portugués (`pt`)**.
+
+- El idioma se cambia desde el selector en el encabezado.
+- La selección se persiste en `localStorage` (`artesanos-verdes:language`).
+- Se traducen textos de navegación, filtros, acciones y metadatos de producto.

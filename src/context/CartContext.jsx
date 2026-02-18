@@ -1,5 +1,6 @@
 import { createContext, useContext, useMemo } from 'react';
 import useLocalStorageState from '../hooks/useLocalStorageState';
+import { DEFAULT_LANGUAGE, translations } from '../i18n/translations';
 
 const CART_STORAGE_KEY = 'artesanos-verdes:cart';
 const CartContext = createContext(null);
@@ -53,7 +54,7 @@ export function useCart() {
   const context = useContext(CartContext);
 
   if (!context) {
-    throw new Error('useCart debe usarse dentro de CartProvider');
+    throw new Error(translations[DEFAULT_LANGUAGE].useCartError);
   }
 
   return context;

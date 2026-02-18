@@ -1,4 +1,5 @@
 import { useId } from 'react';
+import { useI18n } from '../context/I18nContext';
 
 function FilterSidebar({
   categories,
@@ -14,18 +15,19 @@ function FilterSidebar({
 }) {
   const headingId = useId();
   const idPrefix = useId();
+  const { t, translateCategory, translateTag } = useI18n();
 
   return (
     <aside className="filter-sidebar" aria-labelledby={headingId}>
       <div className="filter-header">
-        <h2 id={headingId}>Filtros</h2>
+        <h2 id={headingId}>{t('filters')}</h2>
         <button type="button" className="secondary-button" onClick={onResetFilters}>
-          Limpiar
+          {t('clear')}
         </button>
       </div>
 
       <fieldset>
-        <legend>Categorías</legend>
+        <legend>{t('categories')}</legend>
         <div className="filter-options">
           {categories.map((category) => (
             <label key={category}>
@@ -34,16 +36,16 @@ function FilterSidebar({
                 checked={selectedCategories.includes(category)}
                 onChange={() => onCategoryToggle(category)}
               />
-              {category}
+              {translateCategory(category)}
             </label>
           ))}
         </div>
       </fieldset>
 
       <fieldset>
-        <legend>Rango de precio</legend>
+        <legend>{t('priceRange')}</legend>
         <div className="filter-options">
-          <label htmlFor={`${idPrefix}-min-price-input`}>Mínimo</label>
+          <label htmlFor={`${idPrefix}-min-price-input`}>{t('min')}</label>
           <input
             id={`${idPrefix}-min-price-input`}
             type="number"
@@ -53,7 +55,7 @@ function FilterSidebar({
             onChange={(event) => onPriceChange('min', event.target.value)}
           />
 
-          <label htmlFor={`${idPrefix}-max-price-input`}>Máximo</label>
+          <label htmlFor={`${idPrefix}-max-price-input`}>{t('max')}</label>
           <input
             id={`${idPrefix}-max-price-input`}
             type="number"
@@ -66,7 +68,7 @@ function FilterSidebar({
       </fieldset>
 
       <fieldset>
-        <legend>Etiquetas</legend>
+        <legend>{t('tags')}</legend>
         <div className="filter-options">
           {tags.map((tag) => (
             <label key={tag}>
@@ -75,7 +77,7 @@ function FilterSidebar({
                 checked={selectedTags.includes(tag)}
                 onChange={() => onTagToggle(tag)}
               />
-              {tag}
+              {translateTag(tag)}
             </label>
           ))}
         </div>
