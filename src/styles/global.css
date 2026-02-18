@@ -105,7 +105,11 @@ input {
 
 .language-switcher select {
   border: 1px solid var(--border-color);
+<<<<<<< codex/implement-i18n-for-translations-0h9u1x
   border-radius: var(--radius-sm);
+=======
+  border-radius: 8px;
+>>>>>>> main
   padding: 0.35rem 0.5rem;
 }
 
