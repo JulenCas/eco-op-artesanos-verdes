@@ -76,6 +76,27 @@ function CatalogPage() {
     }
   }, [currentPage, totalPages]);
 
+  useEffect(() => {
+    if (!isMobileFiltersOpen) {
+      document.body.style.removeProperty('overflow');
+      return undefined;
+    }
+
+    document.body.style.setProperty('overflow', 'hidden');
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setMobileFiltersOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.body.style.removeProperty('overflow');
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [isMobileFiltersOpen]);
+
   return (
     <main id="main-content" className="catalog-layout">
       <button
@@ -163,12 +184,24 @@ function CatalogPage() {
         )}
       </section>
 
+      {isMobileFiltersOpen && (
+        <button
+          type="button"
+          className="mobile-filter-overlay"
+          aria-label="Cerrar panel de filtros"
+          onClick={() => setMobileFiltersOpen(false)}
+        />
+      )}
+
       <aside
         id="mobile-filter-panel"
         className={`mobile-filter-panel ${isMobileFiltersOpen ? 'open' : ''}`}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="mobile-filters-title"
         aria-hidden={!isMobileFiltersOpen}
       >
-        <h2>Filtros móviles</h2>
+        <h2 id="mobile-filters-title">Filtros móviles</h2>
         <button
           type="button"
           className="accordion-trigger"
