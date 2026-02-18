@@ -3,7 +3,7 @@ import { useCart } from '../context/CartContext';
 import { useFavorites } from '../context/FavoritesContext';
 
 function Header() {
-  const { totalItems } = useCart();
+  const { getTotalItems } = useCart();
   const { favorites } = useFavorites();
 
   return (
@@ -21,7 +21,7 @@ function Header() {
         </nav>
         <div className="header-counters" aria-live="polite">
           <span>Favoritos: {favorites.length}</span>
-          <span>Carrito: {totalItems}</span>
+          <span>Carrito: {getTotalItems()}</span>
         </div>
       </div>
     </header>
