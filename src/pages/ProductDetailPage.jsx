@@ -36,7 +36,7 @@ function ProductDetailPage() {
             <strong>${product.precio.toFixed(2)}</strong>
           </p>
           <div className="detail-actions">
-            <button type="button" onClick={() => addToCart(product)}>
+            <button type="button" onClick={() => addToCart(product.id)}>
               Añadir al carrito
             </button>
             <Link to="/">Volver al catálogo</Link>

@@ -1,9 +1,28 @@
-import { createContext, useContext, useMemo, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
+const FAVORITES_STORAGE_KEY = 'artesanos-verdes:favorites';
 const FavoritesContext = createContext(null);
 
+function readFavoritesFromStorage() {
+  const storedFavorites = localStorage.getItem(FAVORITES_STORAGE_KEY);
+  if (!storedFavorites) {
+    return [];
+  }
+
+  try {
+    const parsedFavorites = JSON.parse(storedFavorites);
+    return Array.isArray(parsedFavorites) ? parsedFavorites : [];
+  } catch {
+    return [];
+  }
+}
+
 export function FavoritesProvider({ children }) {
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState(() => readFavoritesFromStorage());
+
+  useEffect(() => {
+    localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favorites));
+  }, [favorites]);
 
   const toggleFavorite = (productId) => {
     setFavorites((current) =>
@@ -13,8 +32,10 @@ export function FavoritesProvider({ children }) {
     );
   };
 
+  const isFavorite = (productId) => favorites.includes(productId);
+
   const value = useMemo(
-    () => ({ favorites, toggleFavorite }),
+    () => ({ favorites, toggleFavorite, isFavorite }),
     [favorites]
   );
 

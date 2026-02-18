@@ -4,8 +4,8 @@ import { useFavorites } from '../context/FavoritesContext';
 
 function ProductCard({ product }) {
   const { addToCart } = useCart();
-  const { favorites, toggleFavorite } = useFavorites();
-  const isFavorite = favorites.includes(product.id);
+  const { toggleFavorite, isFavorite } = useFavorites();
+  const favoriteActive = isFavorite(product.id);
 
   return (
     <article className="product-card">
@@ -17,15 +17,15 @@ function ProductCard({ product }) {
           <strong>${product.precio.toFixed(2)}</strong>
         </p>
         <div className="product-actions">
-          <button type="button" onClick={() => addToCart(product)}>
+          <button type="button" onClick={() => addToCart(product.id)}>
             Añadir al carrito
           </button>
           <button
             type="button"
-            aria-pressed={isFavorite}
+            aria-pressed={favoriteActive}
             onClick={() => toggleFavorite(product.id)}
           >
-            {isFavorite ? 'Quitar favorito' : 'Agregar favorito'}
+            Favorito {favoriteActive ? '★' : '☆'}
           </button>
           <Link to={`/product/${product.id}`}>Ver detalle</Link>
         </div>
