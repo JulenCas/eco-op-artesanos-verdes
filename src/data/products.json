@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "name": "Maceta de Barro Reciclado",
+    "category": "Hogar",
+    "price": 18.5,
+    "origin": "Cuenca",
+    "material": "Barro reciclado",
+    "image": "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=800&q=80",
+    "description": "Maceta artesanal con acabado natural y drenaje integrado para plantas de interior."
+  },
+  {
+    "id": "2",
+    "name": "Bolso de Fique Trenzado",
+    "category": "Moda",
+    "price": 42,
+    "origin": "Nariño",
+    "material": "Fique",
+    "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80",
+    "description": "Bolso resistente elaborado por cooperativa local con tintes vegetales."
+  },
+  {
+    "id": "3",
+    "name": "Set de Cubiertos de Bambú",
+    "category": "Cocina",
+    "price": 24,
+    "origin": "Pasto",
+    "material": "Bambú",
+    "image": "https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=800&q=80",
+    "description": "Set reutilizable ideal para llevar, con estuche textil hecho a mano."
+  },
+  {
+    "id": "4",
+    "name": "Vela de Cera de Soya",
+    "category": "Hogar",
+    "price": 14,
+    "origin": "Boyacá",
+    "material": "Cera de soya",
+    "image": "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80",
+    "description": "Vela aromática biodegradable con fragancias de bosque nativo."
+  }
+]
