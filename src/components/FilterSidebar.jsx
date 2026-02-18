@@ -10,13 +10,19 @@ function FilterSidebar({
   priceRange,
   onPriceChange,
   maxAvailablePrice,
+  onResetFilters,
 }) {
   const headingId = useId();
   const idPrefix = useId();
 
   return (
     <aside className="filter-sidebar" aria-labelledby={headingId}>
-      <h2 id={headingId}>Filtros</h2>
+      <div className="filter-header">
+        <h2 id={headingId}>Filtros</h2>
+        <button type="button" className="secondary-button" onClick={onResetFilters}>
+          Limpiar
+        </button>
+      </div>
 
       <fieldset>
         <legend>Categorías</legend>
