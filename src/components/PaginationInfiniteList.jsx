@@ -1,18 +1,34 @@
-function PaginationInfiniteList({ visibleCount, total, onLoadMore }) {
-  const hasMore = visibleCount < total;
+function PaginationInfiniteList({
+  visibleCount,
+  total,
+  currentPage,
+  totalPages,
+  onPageChange,
+}) {
+  const previousDisabled = currentPage <= 1;
+  const nextDisabled = currentPage >= totalPages;
 
   return (
     <div className="pagination-area">
       <p>
-        Mostrando {Math.min(visibleCount, total)} de {total} productos
+        Mostrando {visibleCount} de {total} productos (página {currentPage} de {totalPages})
       </p>
-      {hasMore ? (
-        <button type="button" onClick={onLoadMore}>
-          Cargar más
+      <div className="pagination-controls">
+        <button
+          type="button"
+          onClick={() => onPageChange(currentPage - 1)}
+          disabled={previousDisabled}
+        >
+          Anterior
         </button>
-      ) : (
-        <p role="status">No hay más productos por cargar.</p>
-      )}
+        <button
+          type="button"
+          onClick={() => onPageChange(currentPage + 1)}
+          disabled={nextDisabled}
+        >
+          Siguiente
+        </button>
+      </div>
     </div>
   );
 }

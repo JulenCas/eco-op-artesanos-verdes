@@ -9,12 +9,12 @@ function ProductCard({ product }) {
 
   return (
     <article className="product-card">
-      <img src={product.image} alt={product.name} loading="lazy" />
+      <img src={product.imagen} alt={product.nombre} loading="lazy" />
       <div className="product-content">
-        <h3>{product.name}</h3>
-        <p>{product.description}</p>
+        <h3>{product.nombre}</h3>
+        <p>{product.descripcion}</p>
         <p>
-          <strong>${product.price.toFixed(2)}</strong>
+          <strong>${product.precio.toFixed(2)}</strong>
         </p>
         <div className="product-actions">
           <button type="button" onClick={() => addToCart(product)}>

@@ -20,23 +20,20 @@ function ProductDetailPage() {
   return (
     <main id="main-content" className="detail-page">
       <article className="detail-card">
-        <img src={product.image} alt={product.name} />
+        <img src={product.imagen} alt={product.nombre} />
         <div>
-          <h1>{product.name}</h1>
-          <p>{product.description}</p>
+          <h1>{product.nombre}</h1>
+          <p>{product.descripcion}</p>
           <ul>
             <li>
-              <strong>Categoría:</strong> {product.category}
+              <strong>Categoría:</strong> {product.categoria}
             </li>
             <li>
-              <strong>Origen:</strong> {product.origin}
-            </li>
-            <li>
-              <strong>Material:</strong> {product.material}
+              <strong>Etiquetas:</strong> {product.etiquetas.join(', ')}
             </li>
           </ul>
           <p>
-            <strong>${product.price.toFixed(2)}</strong>
+            <strong>${product.precio.toFixed(2)}</strong>
           </p>
           <div className="detail-actions">
             <button type="button" onClick={() => addToCart(product)}>
