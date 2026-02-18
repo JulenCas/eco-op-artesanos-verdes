@@ -227,6 +227,10 @@ button:hover {
   display: none;
 }
 
+.mobile-filter-overlay {
+  display: none;
+}
+
 .detail-page {
   max-width: 1000px;
   margin: 0 auto;
@@ -255,6 +259,18 @@ button:hover {
   .mobile-filter-trigger {
     display: inline-flex;
     width: fit-content;
+  }
+
+  .mobile-filter-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    padding: 0;
+    background: rgb(0 0 0 / 0.45);
+    z-index: 150;
   }
 
   .mobile-filter-panel {
