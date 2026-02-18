@@ -1,48 +1,80 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import FilterSidebar from '../components/FilterSidebar';
 import PaginationInfiniteList from '../components/PaginationInfiniteList';
 import ProductCard from '../components/ProductCard';
 import SearchBar from '../components/SearchBar';
 import products from '../data/products.json';
+import { applyProductFilters, sortProducts } from '../utils/filters';
 
-const ITEMS_PER_BATCH = 4;
+const PAGE_SIZE = 8;
 
 function CatalogPage() {
   const [query, setQuery] = useState('');
-  const [activeCategory, setActiveCategory] = useState('Todas');
-  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_BATCH);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [sortBy, setSortBy] = useState('default');
+  const [currentPage, setCurrentPage] = useState(1);
   const [isMobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [filtersAccordionOpen, setFiltersAccordionOpen] = useState(true);
 
-  const categories = useMemo(
-    () => [...new Set(products.map((product) => product.category))],
+  const maxAvailablePrice = useMemo(
+    () => Math.max(...products.map((product) => product.precio)),
     []
   );
 
-  const filteredProducts = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase();
-    return products.filter((product) => {
-      const inCategory =
-        activeCategory === 'Todas' || product.category === activeCategory;
-      const inQuery =
-        normalizedQuery === '' ||
-        product.name.toLowerCase().includes(normalizedQuery) ||
-        product.material.toLowerCase().includes(normalizedQuery);
-      return inCategory && inQuery;
-    });
-  }, [activeCategory, query]);
+  const [priceRange, setPriceRange] = useState({ min: 0, max: maxAvailablePrice });
 
-  const visibleProducts = filteredProducts.slice(0, visibleCount);
+  const categories = useMemo(
+    () => [...new Set(products.map((product) => product.categoria))],
+    []
+  );
 
-  const handleFilterChange = (category) => {
-    setActiveCategory(category);
-    setVisibleCount(ITEMS_PER_BATCH);
-  };
+  const tags = useMemo(
+    () => [...new Set(products.flatMap((product) => product.etiquetas))],
+    []
+  );
 
-  const handleSearch = (value) => {
-    setQuery(value);
-    setVisibleCount(ITEMS_PER_BATCH);
-  };
+  const filteredProducts = useMemo(
+    () =>
+      applyProductFilters(products, {
+        selectedCategories,
+        minPrice: priceRange.min,
+        maxPrice: priceRange.max,
+        selectedTags,
+        query,
+      }),
+    [priceRange.max, priceRange.min, query, selectedCategories, selectedTags]
+  );
+
+  const sortedProducts = useMemo(
+    () => sortProducts(filteredProducts, sortBy),
+    [filteredProducts, sortBy]
+  );
+
+  const shouldPaginate = sortedProducts.length > 20;
+  const totalPages = shouldPaginate
+    ? Math.max(1, Math.ceil(sortedProducts.length / PAGE_SIZE))
+    : 1;
+
+  const visibleProducts = useMemo(() => {
+    if (!shouldPaginate) {
+      return sortedProducts;
+    }
+
+    const start = (currentPage - 1) * PAGE_SIZE;
+    const end = start + PAGE_SIZE;
+    return sortedProducts.slice(start, end);
+  }, [currentPage, shouldPaginate, sortedProducts]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [query, selectedCategories, selectedTags, sortBy, priceRange.min, priceRange.max]);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
 
   return (
     <main id="main-content" className="catalog-layout">
@@ -59,13 +91,54 @@ function CatalogPage() {
       <div className="desktop-sidebar">
         <FilterSidebar
           categories={categories}
-          activeCategory={activeCategory}
-          onCategoryChange={handleFilterChange}
+          selectedCategories={selectedCategories}
+          onCategoryToggle={(category) => {
+            setSelectedCategories((current) =>
+              current.includes(category)
+                ? current.filter((item) => item !== category)
+                : [...current, category]
+            );
+          }}
+          tags={tags}
+          selectedTags={selectedTags}
+          onTagToggle={(tag) => {
+            setSelectedTags((current) =>
+              current.includes(tag)
+                ? current.filter((item) => item !== tag)
+                : [...current, tag]
+            );
+          }}
+          priceRange={priceRange}
+          onPriceChange={(field, value) => {
+            const parsedValue = Number(value);
+            setPriceRange((current) => ({
+              ...current,
+              [field]: Number.isNaN(parsedValue) ? 0 : parsedValue,
+            }));
+          }}
+          maxAvailablePrice={maxAvailablePrice}
         />
       </div>
 
       <section className="catalog-main" aria-label="Listado de productos">
-        <SearchBar value={query} onChange={handleSearch} />
+        <SearchBar value={query} onChange={setQuery} />
+
+        <div className="catalog-toolbar">
+          <p role="status">{sortedProducts.length} resultados encontrados</p>
+          <label htmlFor="sort-select">
+            Ordenar por
+            <select
+              id="sort-select"
+              value={sortBy}
+              onChange={(event) => setSortBy(event.target.value)}
+            >
+              <option value="default">Relevancia</option>
+              <option value="nombre-asc">Nombre (A-Z)</option>
+              <option value="precio-asc">Precio (menor a mayor)</option>
+              <option value="precio-desc">Precio (mayor a menor)</option>
+            </select>
+          </label>
+        </div>
 
         <div className="product-grid" role="list">
           {visibleProducts.map((product) => (
@@ -75,15 +148,19 @@ function CatalogPage() {
           ))}
         </div>
 
-        {filteredProducts.length === 0 && (
+        {sortedProducts.length === 0 && (
           <p role="status">No encontramos productos para tu búsqueda actual.</p>
         )}
 
-        <PaginationInfiniteList
-          visibleCount={visibleProducts.length}
-          total={filteredProducts.length}
-          onLoadMore={() => setVisibleCount((current) => current + ITEMS_PER_BATCH)}
-        />
+        {shouldPaginate && (
+          <PaginationInfiniteList
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+            visibleCount={visibleProducts.length}
+            total={sortedProducts.length}
+          />
+        )}
       </section>
 
       <aside
@@ -98,13 +175,37 @@ function CatalogPage() {
           aria-expanded={filtersAccordionOpen}
           onClick={() => setFiltersAccordionOpen((current) => !current)}
         >
-          Categorías
+          Filtros
         </button>
         {filtersAccordionOpen && (
           <FilterSidebar
             categories={categories}
-            activeCategory={activeCategory}
-            onCategoryChange={handleFilterChange}
+            selectedCategories={selectedCategories}
+            onCategoryToggle={(category) => {
+              setSelectedCategories((current) =>
+                current.includes(category)
+                  ? current.filter((item) => item !== category)
+                  : [...current, category]
+              );
+            }}
+            tags={tags}
+            selectedTags={selectedTags}
+            onTagToggle={(tag) => {
+              setSelectedTags((current) =>
+                current.includes(tag)
+                  ? current.filter((item) => item !== tag)
+                  : [...current, tag]
+              );
+            }}
+            priceRange={priceRange}
+            onPriceChange={(field, value) => {
+              const parsedValue = Number(value);
+              setPriceRange((current) => ({
+                ...current,
+                [field]: Number.isNaN(parsedValue) ? 0 : parsedValue,
+              }));
+            }}
+            maxAvailablePrice={maxAvailablePrice}
           />
         )}
       </aside>

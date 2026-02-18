@@ -1,42 +1,221 @@
 [
   {
     "id": "1",
-    "name": "Maceta de Barro Reciclado",
-    "category": "Hogar",
-    "price": 18.5,
-    "origin": "Cuenca",
-    "material": "Barro reciclado",
-    "image": "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=800&q=80",
-    "description": "Maceta artesanal con acabado natural y drenaje integrado para plantas de interior."
+    "nombre": "Maceta de barro reciclado",
+    "imagen": "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Hogar",
+    "precio": 18.5,
+    "descripcion": "Maceta artesanal con drenaje integrado para plantas de interior.",
+    "etiquetas": ["reciclado", "hogar", "barro"]
   },
   {
     "id": "2",
-    "name": "Bolso de Fique Trenzado",
-    "category": "Moda",
-    "price": 42,
-    "origin": "Nariño",
-    "material": "Fique",
-    "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80",
-    "description": "Bolso resistente elaborado por cooperativa local con tintes vegetales."
+    "nombre": "Bolso de fique trenzado",
+    "imagen": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Moda",
+    "precio": 42,
+    "descripcion": "Bolso resistente elaborado con tintes vegetales.",
+    "etiquetas": ["fibras naturales", "moda", "hecho a mano"]
   },
   {
     "id": "3",
-    "name": "Set de Cubiertos de Bambú",
-    "category": "Cocina",
-    "price": 24,
-    "origin": "Pasto",
-    "material": "Bambú",
-    "image": "https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=800&q=80",
-    "description": "Set reutilizable ideal para llevar, con estuche textil hecho a mano."
+    "nombre": "Set de cubiertos de bambú",
+    "imagen": "https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Cocina",
+    "precio": 24,
+    "descripcion": "Set reutilizable ideal para llevar en viajes y oficina.",
+    "etiquetas": ["bambú", "reutilizable", "cocina"]
   },
   {
     "id": "4",
-    "name": "Vela de Cera de Soya",
-    "category": "Hogar",
-    "price": 14,
-    "origin": "Boyacá",
-    "material": "Cera de soya",
-    "image": "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80",
-    "description": "Vela aromática biodegradable con fragancias de bosque nativo."
+    "nombre": "Vela de cera de soya",
+    "imagen": "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Hogar",
+    "precio": 14,
+    "descripcion": "Vela aromática biodegradable con fragancia de bosque.",
+    "etiquetas": ["biodegradable", "hogar", "aromática"]
+  },
+  {
+    "id": "5",
+    "nombre": "Canasto de palma iraca",
+    "imagen": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Hogar",
+    "precio": 29,
+    "descripcion": "Canasto tejido a mano para organización de espacios.",
+    "etiquetas": ["tejido", "hogar", "organización"]
+  },
+  {
+    "id": "6",
+    "nombre": "Cuaderno de papel semilla",
+    "imagen": "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Papelería",
+    "precio": 12,
+    "descripcion": "Cuaderno ecológico cuyas hojas pueden sembrarse al final.",
+    "etiquetas": ["papelería", "reciclado", "siembra"]
+  },
+  {
+    "id": "7",
+    "nombre": "Taza de cerámica esmaltada",
+    "imagen": "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Cocina",
+    "precio": 19,
+    "descripcion": "Taza única con esmaltes naturales y acabado artesanal.",
+    "etiquetas": ["cerámica", "cocina", "hogar"]
+  },
+  {
+    "id": "8",
+    "nombre": "Aretes de madera reciclada",
+    "imagen": "https://images.unsplash.com/photo-1535632787350-4e68ef0ac584?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Accesorios",
+    "precio": 16,
+    "descripcion": "Aretes livianos elaborados con retazos de madera.",
+    "etiquetas": ["accesorios", "reciclado", "moda"]
+  },
+  {
+    "id": "9",
+    "nombre": "Manta de algodón orgánico",
+    "imagen": "https://images.unsplash.com/photo-1616627561950-9f746e330187?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Textil",
+    "precio": 56,
+    "descripcion": "Manta tejida en telar con algodón orgánico certificado.",
+    "etiquetas": ["textil", "algodón", "hogar"],
+    "imagenesAdicionales": [
+      "https://images.unsplash.com/photo-1616627561919-9ae6f88ea182?auto=format&fit=crop&w=900&q=80"
+    ]
+  },
+  {
+    "id": "10",
+    "nombre": "Jabón artesanal de avena",
+    "imagen": "https://images.unsplash.com/photo-1607006483225-9697f9494d4b?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Cuidado personal",
+    "precio": 9,
+    "descripcion": "Jabón suave para piel sensible con ingredientes vegetales.",
+    "etiquetas": ["cuidado personal", "natural", "biodegradable"]
+  },
+  {
+    "id": "11",
+    "nombre": "Porta laptop de cuero vegano",
+    "imagen": "https://images.unsplash.com/photo-1517336714739-489689fd1ca8?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Moda",
+    "precio": 68,
+    "descripcion": "Funda acolchada hecha con cuero vegano y costuras reforzadas.",
+    "etiquetas": ["moda", "vegano", "oficina"]
+  },
+  {
+    "id": "12",
+    "nombre": "Tabla de cortar en guadua",
+    "imagen": "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Cocina",
+    "precio": 27,
+    "descripcion": "Tabla antibacteriana de guadua tratada para uso diario.",
+    "etiquetas": ["cocina", "guadua", "hogar"]
+  },
+  {
+    "id": "13",
+    "nombre": "Camino de mesa tejido",
+    "imagen": "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Textil",
+    "precio": 31,
+    "descripcion": "Camino de mesa con fibras de algodón y tintes naturales.",
+    "etiquetas": ["textil", "tejido", "hogar"]
+  },
+  {
+    "id": "14",
+    "nombre": "Lámpara de botellas reutilizadas",
+    "imagen": "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Decoración",
+    "precio": 73,
+    "descripcion": "Lámpara colgante hecha con vidrio recuperado.",
+    "etiquetas": ["decoración", "reciclado", "hogar"]
+  },
+  {
+    "id": "15",
+    "nombre": "Pulsera de semillas nativas",
+    "imagen": "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Accesorios",
+    "precio": 11,
+    "descripcion": "Pulsera artesanal elaborada con semillas recolectadas.",
+    "etiquetas": ["accesorios", "natural", "hecho a mano"]
+  },
+  {
+    "id": "16",
+    "nombre": "Delantal de lino orgánico",
+    "imagen": "https://images.unsplash.com/photo-1556912167-f556f1f39fdf?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Cocina",
+    "precio": 33,
+    "descripcion": "Delantal durable para cocina con bolsillos frontales.",
+    "etiquetas": ["cocina", "textil", "orgánico"]
+  },
+  {
+    "id": "17",
+    "nombre": "Difusor de arcilla porosa",
+    "imagen": "https://images.unsplash.com/photo-1611078489935-0cb964de46f6?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Hogar",
+    "precio": 22,
+    "descripcion": "Difusor para aceites esenciales sin electricidad.",
+    "etiquetas": ["hogar", "aromática", "cerámica"]
+  },
+  {
+    "id": "18",
+    "nombre": "Mochila en lona reciclada",
+    "imagen": "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Moda",
+    "precio": 59,
+    "descripcion": "Mochila urbana hecha con lona recuperada y cierres metálicos.",
+    "etiquetas": ["moda", "reciclado", "urbano"]
+  },
+  {
+    "id": "19",
+    "nombre": "Kit de sorbetes reutilizables",
+    "imagen": "https://images.unsplash.com/photo-1615485737457-4f35f49c7614?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Cocina",
+    "precio": 13,
+    "descripcion": "Incluye sorbetes de acero, cepillo y bolsa de transporte.",
+    "etiquetas": ["reutilizable", "cocina", "viaje"]
+  },
+  {
+    "id": "20",
+    "nombre": "Portavelas tallado en coco",
+    "imagen": "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Decoración",
+    "precio": 17,
+    "descripcion": "Portavelas elaborado a partir de cáscara de coco pulida.",
+    "etiquetas": ["decoración", "natural", "hogar"]
+  },
+  {
+    "id": "21",
+    "nombre": "Agenda de corcho natural",
+    "imagen": "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Papelería",
+    "precio": 21,
+    "descripcion": "Agenda anual con cubierta de corcho y papel reciclado.",
+    "etiquetas": ["papelería", "reciclado", "oficina"]
+  },
+  {
+    "id": "22",
+    "nombre": "Cojín bordado artesanal",
+    "imagen": "https://images.unsplash.com/photo-1579656592043-4f9a9d2f0a9d?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Textil",
+    "precio": 38,
+    "descripcion": "Cojín decorativo bordado con motivos de flora local.",
+    "etiquetas": ["textil", "decoración", "hogar"]
+  },
+  {
+    "id": "23",
+    "nombre": "Set de brochas de bambú",
+    "imagen": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Cuidado personal",
+    "precio": 26,
+    "descripcion": "Brochas veganas para maquillaje con mango de bambú.",
+    "etiquetas": ["cuidado personal", "bambú", "vegano"]
+  },
+  {
+    "id": "24",
+    "nombre": "Collar en filigrana artesanal",
+    "imagen": "https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=900&q=80",
+    "categoria": "Accesorios",
+    "precio": 47,
+    "descripcion": "Collar elaborado por orfebres con técnica tradicional.",
+    "etiquetas": ["accesorios", "hecho a mano", "regalo"]
   }
 ]
