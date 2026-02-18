@@ -4,11 +4,13 @@ import PaginationInfiniteList from '../components/PaginationInfiniteList';
 import ProductCard from '../components/ProductCard';
 import SearchBar from '../components/SearchBar';
 import products from '../data/products.json';
+import { useI18n } from '../context/I18nContext';
 import useCatalogFilters from '../hooks/useCatalogFilters';
 
 function CatalogPage() {
   const [isMobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [filtersAccordionOpen, setFiltersAccordionOpen] = useState(true);
+  const { t } = useI18n();
 
   const {
     query,
@@ -64,7 +66,7 @@ function CatalogPage() {
         aria-expanded={isMobileFiltersOpen}
         onClick={() => setMobileFiltersOpen((current) => !current)}
       >
-        {isMobileFiltersOpen ? 'Cerrar filtros' : 'Abrir filtros'}
+        {isMobileFiltersOpen ? t('closeFilters') : t('openFilters')}
       </button>
 
       <div className="desktop-sidebar">
@@ -82,18 +84,18 @@ function CatalogPage() {
         />
       </div>
 
-      <section className="catalog-main" aria-label="Listado de productos">
+      <section className="catalog-main" aria-label={t('productListAria')}>
         <SearchBar value={query} onChange={setQuery} />
 
         <div className="catalog-toolbar">
-          <p role="status">{sortedProducts.length} resultados encontrados</p>
+          <p role="status">{t('foundResults', { count: sortedProducts.length })}</p>
           <label htmlFor="sort-select">
-            Ordenar por
+            {t('sortBy')}
             <select id="sort-select" value={sortBy} onChange={(event) => setSortBy(event.target.value)}>
-              <option value="default">Relevancia</option>
-              <option value="nombre-asc">Nombre (A-Z)</option>
-              <option value="precio-asc">Precio (menor a mayor)</option>
-              <option value="precio-desc">Precio (mayor a menor)</option>
+              <option value="default">{t('sortRelevance')}</option>
+              <option value="nombre-asc">{t('sortName')}</option>
+              <option value="precio-asc">{t('sortPriceAsc')}</option>
+              <option value="precio-desc">{t('sortPriceDesc')}</option>
             </select>
           </label>
         </div>
@@ -107,7 +109,7 @@ function CatalogPage() {
         </div>
 
         {sortedProducts.length === 0 && (
-          <p role="status">No encontramos productos para tu búsqueda actual.</p>
+          <p role="status">{t('noResults')}</p>
         )}
 
         {shouldPaginate && (
@@ -125,7 +127,7 @@ function CatalogPage() {
         <button
           type="button"
           className="mobile-filter-overlay"
-          aria-label="Cerrar panel de filtros"
+          aria-label={t('closeFiltersPanel')}
           onClick={() => setMobileFiltersOpen(false)}
         />
       )}
@@ -138,14 +140,14 @@ function CatalogPage() {
         aria-labelledby="mobile-filters-title"
         aria-hidden={!isMobileFiltersOpen}
       >
-        <h2 id="mobile-filters-title">Filtros móviles</h2>
+        <h2 id="mobile-filters-title">{t('mobileFilters')}</h2>
         <button
           type="button"
           className="accordion-trigger"
           aria-expanded={filtersAccordionOpen}
           onClick={() => setFiltersAccordionOpen((current) => !current)}
         >
-          Filtros
+          {t('filters')}
         </button>
         {filtersAccordionOpen && (
           <FilterSidebar

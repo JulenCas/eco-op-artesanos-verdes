@@ -1,5 +1,6 @@
 import { createContext, useContext, useMemo } from 'react';
 import useLocalStorageState from '../hooks/useLocalStorageState';
+import { DEFAULT_LANGUAGE, translations } from '../i18n/translations';
 
 const FAVORITES_STORAGE_KEY = 'artesanos-verdes:favorites';
 const FavoritesContext = createContext(null);
@@ -29,7 +30,7 @@ export function useFavorites() {
   const context = useContext(FavoritesContext);
 
   if (!context) {
-    throw new Error('useFavorites debe usarse dentro de FavoritesProvider');
+    throw new Error(translations[DEFAULT_LANGUAGE].useFavoritesError);
   }
 
   return context;

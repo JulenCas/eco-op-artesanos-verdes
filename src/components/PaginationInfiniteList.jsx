@@ -1,3 +1,5 @@
+import { useI18n } from '../context/I18nContext';
+
 function PaginationInfiniteList({
   visibleCount,
   total,
@@ -7,11 +9,17 @@ function PaginationInfiniteList({
 }) {
   const previousDisabled = currentPage <= 1;
   const nextDisabled = currentPage >= totalPages;
+  const { t } = useI18n();
 
   return (
     <div className="pagination-area">
       <p>
-        Mostrando {visibleCount} de {total} productos (página {currentPage} de {totalPages})
+        {t('showingPage', {
+          visible: visibleCount,
+          total,
+          current: currentPage,
+          pages: totalPages,
+        })}
       </p>
       <div className="pagination-controls">
         <button
@@ -19,14 +27,14 @@ function PaginationInfiniteList({
           onClick={() => onPageChange(currentPage - 1)}
           disabled={previousDisabled}
         >
-          Anterior
+          {t('previous')}
         </button>
         <button
           type="button"
           onClick={() => onPageChange(currentPage + 1)}
           disabled={nextDisabled}
         >
-          Siguiente
+          {t('next')}
         </button>
       </div>
     </div>
