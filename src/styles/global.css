@@ -1,10 +1,9 @@
 :root {
-  --green-900: #113322;
-  --green-800: #1d4d34;
-  --green-600: #2f6b4a;
-  --earth-500: #906b42;
-  --earth-200: #e9dbc8;
-  --sand-100: #f9f5ef;
+  --green-900: #1f4d3b;
+  --green-800: #2a6f54;
+  --green-600: #3f8b6c;
+  --sand-100: #f8f3ef;
+  --earth-500: #8b5e3c;
   --text-900: #1a1a1a;
   --focus-ring: #ffbf47;
   --border-color: #c7b8a3;
@@ -107,11 +106,30 @@ input {
   border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 1rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.filter-header h2 {
+  margin: 0;
 }
 
 .filter-options {
   display: grid;
   gap: 0.5rem;
+}
+
+.filter-sidebar fieldset {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.75rem;
 }
 
 .catalog-main {
@@ -124,10 +142,9 @@ input {
   gap: 0.5rem;
 }
 
-
 .search-bar input,
 .catalog-toolbar select,
-.filter-sidebar input[type="number"] {
+.filter-sidebar input[type='number'] {
   border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 0.7rem;
@@ -145,17 +162,6 @@ input {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-}
-
-.filter-sidebar {
-  display: grid;
-  gap: 1rem;
-}
-
-.filter-sidebar fieldset {
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 0.75rem;
 }
 
 .pagination-controls {
@@ -205,6 +211,16 @@ button:hover {
   background: var(--green-600);
 }
 
+.secondary-button {
+  border-color: var(--earth-500);
+  background: white;
+  color: var(--earth-500);
+}
+
+.secondary-button:hover {
+  background: #f8efe7;
+}
+
 .product-actions a,
 .detail-actions a {
   display: inline-block;
@@ -245,6 +261,38 @@ button:hover {
   border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 1rem;
+}
+
+.detail-gallery {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.detail-gallery img {
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+}
+
+.detail-meta {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.tag-list {
+  margin: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag-pill {
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  padding: 0.2rem 0.65rem;
+  background: #f1e8de;
 }
 
 @media (max-width: 900px) {

@@ -1,80 +1,37 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import FilterSidebar from '../components/FilterSidebar';
 import PaginationInfiniteList from '../components/PaginationInfiniteList';
 import ProductCard from '../components/ProductCard';
 import SearchBar from '../components/SearchBar';
 import products from '../data/products.json';
-import { applyProductFilters, sortProducts } from '../utils/filters';
-
-const PAGE_SIZE = 8;
+import useCatalogFilters from '../hooks/useCatalogFilters';
 
 function CatalogPage() {
-  const [query, setQuery] = useState('');
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const [selectedTags, setSelectedTags] = useState([]);
-  const [sortBy, setSortBy] = useState('default');
-  const [currentPage, setCurrentPage] = useState(1);
   const [isMobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [filtersAccordionOpen, setFiltersAccordionOpen] = useState(true);
 
-  const maxAvailablePrice = useMemo(
-    () => Math.max(...products.map((product) => product.precio)),
-    []
-  );
-
-  const [priceRange, setPriceRange] = useState({ min: 0, max: maxAvailablePrice });
-
-  const categories = useMemo(
-    () => [...new Set(products.map((product) => product.categoria))],
-    []
-  );
-
-  const tags = useMemo(
-    () => [...new Set(products.flatMap((product) => product.etiquetas))],
-    []
-  );
-
-  const filteredProducts = useMemo(
-    () =>
-      applyProductFilters(products, {
-        selectedCategories,
-        minPrice: priceRange.min,
-        maxPrice: priceRange.max,
-        selectedTags,
-        query,
-      }),
-    [priceRange.max, priceRange.min, query, selectedCategories, selectedTags]
-  );
-
-  const sortedProducts = useMemo(
-    () => sortProducts(filteredProducts, sortBy),
-    [filteredProducts, sortBy]
-  );
-
-  const shouldPaginate = sortedProducts.length > 20;
-  const totalPages = shouldPaginate
-    ? Math.max(1, Math.ceil(sortedProducts.length / PAGE_SIZE))
-    : 1;
-
-  const visibleProducts = useMemo(() => {
-    if (!shouldPaginate) {
-      return sortedProducts;
-    }
-
-    const start = (currentPage - 1) * PAGE_SIZE;
-    const end = start + PAGE_SIZE;
-    return sortedProducts.slice(start, end);
-  }, [currentPage, shouldPaginate, sortedProducts]);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [query, selectedCategories, selectedTags, sortBy, priceRange.min, priceRange.max]);
-
-  useEffect(() => {
-    if (currentPage > totalPages) {
-      setCurrentPage(totalPages);
-    }
-  }, [currentPage, totalPages]);
+  const {
+    query,
+    setQuery,
+    sortBy,
+    setSortBy,
+    currentPage,
+    setCurrentPage,
+    maxAvailablePrice,
+    priceRange,
+    categories,
+    tags,
+    sortedProducts,
+    visibleProducts,
+    shouldPaginate,
+    totalPages,
+    updatePriceRange,
+    toggleCategory,
+    toggleTag,
+    resetFilters,
+    selectedCategories,
+    selectedTags,
+  } = useCatalogFilters(products);
 
   useEffect(() => {
     if (!isMobileFiltersOpen) {
@@ -91,6 +48,7 @@ function CatalogPage() {
     };
 
     window.addEventListener('keydown', onKeyDown);
+
     return () => {
       document.body.style.removeProperty('overflow');
       window.removeEventListener('keydown', onKeyDown);
@@ -113,31 +71,14 @@ function CatalogPage() {
         <FilterSidebar
           categories={categories}
           selectedCategories={selectedCategories}
-          onCategoryToggle={(category) => {
-            setSelectedCategories((current) =>
-              current.includes(category)
-                ? current.filter((item) => item !== category)
-                : [...current, category]
-            );
-          }}
+          onCategoryToggle={toggleCategory}
           tags={tags}
           selectedTags={selectedTags}
-          onTagToggle={(tag) => {
-            setSelectedTags((current) =>
-              current.includes(tag)
-                ? current.filter((item) => item !== tag)
-                : [...current, tag]
-            );
-          }}
+          onTagToggle={toggleTag}
           priceRange={priceRange}
-          onPriceChange={(field, value) => {
-            const parsedValue = Number(value);
-            setPriceRange((current) => ({
-              ...current,
-              [field]: Number.isNaN(parsedValue) ? 0 : parsedValue,
-            }));
-          }}
+          onPriceChange={updatePriceRange}
           maxAvailablePrice={maxAvailablePrice}
+          onResetFilters={resetFilters}
         />
       </div>
 
@@ -148,11 +89,7 @@ function CatalogPage() {
           <p role="status">{sortedProducts.length} resultados encontrados</p>
           <label htmlFor="sort-select">
             Ordenar por
-            <select
-              id="sort-select"
-              value={sortBy}
-              onChange={(event) => setSortBy(event.target.value)}
-            >
+            <select id="sort-select" value={sortBy} onChange={(event) => setSortBy(event.target.value)}>
               <option value="default">Relevancia</option>
               <option value="nombre-asc">Nombre (A-Z)</option>
               <option value="precio-asc">Precio (menor a mayor)</option>
@@ -214,31 +151,14 @@ function CatalogPage() {
           <FilterSidebar
             categories={categories}
             selectedCategories={selectedCategories}
-            onCategoryToggle={(category) => {
-              setSelectedCategories((current) =>
-                current.includes(category)
-                  ? current.filter((item) => item !== category)
-                  : [...current, category]
-              );
-            }}
+            onCategoryToggle={toggleCategory}
             tags={tags}
             selectedTags={selectedTags}
-            onTagToggle={(tag) => {
-              setSelectedTags((current) =>
-                current.includes(tag)
-                  ? current.filter((item) => item !== tag)
-                  : [...current, tag]
-              );
-            }}
+            onTagToggle={toggleTag}
             priceRange={priceRange}
-            onPriceChange={(field, value) => {
-              const parsedValue = Number(value);
-              setPriceRange((current) => ({
-                ...current,
-                [field]: Number.isNaN(parsedValue) ? 0 : parsedValue,
-              }));
-            }}
+            onPriceChange={updatePriceRange}
             maxAvailablePrice={maxAvailablePrice}
+            onResetFilters={resetFilters}
           />
         )}
       </aside>

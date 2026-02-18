@@ -1,28 +1,11 @@
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useContext, useMemo } from 'react';
+import useLocalStorageState from '../hooks/useLocalStorageState';
 
 const CART_STORAGE_KEY = 'artesanos-verdes:cart';
 const CartContext = createContext(null);
 
-function readCartFromStorage() {
-  const storedCart = localStorage.getItem(CART_STORAGE_KEY);
-  if (!storedCart) {
-    return [];
-  }
-
-  try {
-    const parsedCart = JSON.parse(storedCart);
-    return Array.isArray(parsedCart) ? parsedCart : [];
-  } catch {
-    return [];
-  }
-}
-
 export function CartProvider({ children }) {
-  const [cartItems, setCartItems] = useState(() => readCartFromStorage());
-
-  useEffect(() => {
-    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartItems));
-  }, [cartItems]);
+  const [cartItems, setCartItems] = useLocalStorageState(CART_STORAGE_KEY, []);
 
   const addToCart = (productId) => {
     setCartItems((current) => {
@@ -68,6 +51,7 @@ export function CartProvider({ children }) {
 
 export function useCart() {
   const context = useContext(CartContext);
+
   if (!context) {
     throw new Error('useCart debe usarse dentro de CartProvider');
   }
