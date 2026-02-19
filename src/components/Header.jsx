@@ -19,6 +19,12 @@ function Header() {
             <li>
               <NavLink to="/">{t('catalog')}</NavLink>
             </li>
+            <li>
+              <NavLink to="/favorites">{t('favorites')}</NavLink>
+            </li>
+            <li>
+              <NavLink to="/cart">{t('cart')}</NavLink>
+            </li>
           </ul>
         </nav>
 

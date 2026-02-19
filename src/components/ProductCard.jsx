@@ -11,9 +11,27 @@ function ProductCard({ product }) {
 
   return (
     <article className="product-card">
-      <img src={product.imagen} alt={product.nombre} loading="lazy" />
+      <div className="product-media">
+        <Link to={`/product/${product.id}`} className="product-image-link" aria-label={`${t('viewDetail')}: ${product.nombre}`}>
+          <img src={product.imagen} alt={product.nombre} loading="lazy" />
+        </Link>
+        <button
+          type="button"
+          className="favorite-icon-button"
+          aria-label={t('favorite')}
+          aria-pressed={favoriteActive}
+          onClick={() => toggleFavorite(product.id)}
+        >
+          {favoriteActive ? '♥' : '♡'}
+        </button>
+      </div>
+
       <div className="product-content">
-        <h3>{product.nombre}</h3>
+        <h3>
+          <Link to={`/product/${product.id}`} className="product-name-link">
+            {product.nombre}
+          </Link>
+        </h3>
         <p>{product.descripcion}</p>
         <p>
           <strong>${product.precio.toFixed(2)}</strong>
@@ -21,13 +39,6 @@ function ProductCard({ product }) {
         <div className="product-actions">
           <button type="button" onClick={() => addToCart(product.id)}>
             {t('addToCart')}
-          </button>
-          <button
-            type="button"
-            aria-pressed={favoriteActive}
-            onClick={() => toggleFavorite(product.id)}
-          >
-            {t('favorite')} {favoriteActive ? '★' : '☆'}
           </button>
           <Link to={`/product/${product.id}`}>{t('viewDetail')}</Link>
         </div>
